@@ -1,0 +1,29 @@
+{
+  "description": "This setting allows any service in any Azure tenant to authenticate to the SQL server.",
+  "displayName": "Audit SQL-servers which allow access from all Azure services and resources",
+  "metadata": {
+    "version": "1.0.0",
+    "category": "Custom"
+  },
+  "mode": "All",
+  "name": "6b20fb33-a150-41c7-af25-e0f3674827bc",
+  "parameters": {},
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "equals": "Microsoft.Sql/servers/firewallrules",
+          "field": "type"
+        },
+        {
+          "field": "name",
+          "like": "AllowAllWindowsAzureIps"
+        }
+      ]
+    },
+    "then": {
+      "effect": "audit"
+    }
+  },
+  "type": "Microsoft.Authorization/policyDefinitions"
+}
